@@ -21,7 +21,7 @@ android {
     namespace = 'org.signal.libsignal'
 
     compileSdk 34
-    ndkVersion = '28.0.13004108'
+    ndkVersion = '28.2.13676358'
 
     defaultConfig {
         minSdkVersion 23
@@ -137,6 +137,8 @@ String[] archsFromProperty(String prop) {
     findProperty(prop)?.split(',')?.findAll { it != '' }?.collect { 'android-' + it }
 }
 
+def ANDROID_LIB_DIR_FOR_GRADLE = file('src/main/jniLibs')
+
 task makeJniLibraries(type:Exec) {
     group = 'Rust'
     description = 'Build the JNI libraries for Android'
@@ -150,6 +152,23 @@ task makeJniLibraries(type:Exec) {
     // Explicitly specify 'bash' for Windows compatibility.
     commandLine 'bash', '../build_jni.sh', *libsignalDebugFlag, *debugLevelLogsFlag, *jniTypeTaggingFlag, *jniCheckAnnotationsFlag, *debugFlag, *archs
     environment 'ANDROID_NDK_HOME', android.ndkDirectory
+
+    // LOCAL PATCH: without declared inputs/outputs an Exec task is never up-to-date,
+    // so cargo was re-entered on *every* Gradle build (~6s warm, minutes cold) even
+    // when no Rust source had changed. cargo still does the real incremental work;
+    // this only lets Gradle skip invoking it when nothing relevant changed.
+    def repoRoot = project.rootDir.parentFile
+    inputs.dir(new File(repoRoot, 'rust')).withPathSensitivity(PathSensitivity.RELATIVE)
+    inputs.files(
+        new File(repoRoot, 'Cargo.toml'),
+        new File(repoRoot, 'Cargo.lock'),
+        new File(repoRoot, 'rust-toolchain'),
+        new File(repoRoot, 'java/build_jni.sh'),
+        new File(repoRoot, 'bin/build_helpers.sh'),
+    ).withPathSensitivity(PathSensitivity.RELATIVE)
+    inputs.property('archs', archs)
+    inputs.property('flags', [*libsignalDebugFlag, *debugLevelLogsFlag, *jniTypeTaggingFlag, *jniCheckAnnotationsFlag, *debugFlag])
+    outputs.dir(ANDROID_LIB_DIR_FOR_GRADLE)
 }
 
 task collectAssets(type:Copy) {

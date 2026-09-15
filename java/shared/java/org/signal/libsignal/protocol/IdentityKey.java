@@ -27,11 +27,11 @@ public class IdentityKey {
   }
 
   public IdentityKey(byte[] bytes, int offset) throws InvalidKeyException {
-    this.publicKey = new ECPublicKey(bytes, offset);
+    this.publicKey = new ECPublicKey(bytes, offset, bytes.length - offset);
   }
 
   public IdentityKey(byte[] bytes) throws InvalidKeyException {
-    this.publicKey = new ECPublicKey(bytes, 0);
+    this.publicKey = new ECPublicKey(bytes);
   }
 
   @CalledFromNative

@@ -82,7 +82,7 @@ public class NativeHandleGuard implements AutoCloseable {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "removal"})
     protected void finalize() {
       release(this.nativeHandle);
     }
@@ -110,7 +110,7 @@ public class NativeHandleGuard implements AutoCloseable {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "removal"})
     protected void finalize() {
       close();
       // Not calling super.finalize() is fine, because close already does the same thing.

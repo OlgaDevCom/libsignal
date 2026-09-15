@@ -20,7 +20,7 @@ SERVER_LIB_DIR=java/server/src/main/resources
 # But allow this to fail in case we're offline.
 cargo fetch || true
 
-export CARGO_PROFILE_RELEASE_DEBUG=1 # Enable line tables
+export CARGO_PROFILE_RELEASE_DEBUG="${CARGO_PROFILE_RELEASE_DEBUG:-0}"
 RUSTFLAGS="--cfg aes_armv8 ${RUSTFLAGS:-}" # Enable ARMv8 cryptography acceleration when available
 RUSTFLAGS="--cfg tokio_unstable ${RUSTFLAGS:-}" # Access tokio's unstable metrics
 RUSTFLAGS="$(rust_remap_path_options) ${RUSTFLAGS:-}" # Strip absolute paths
@@ -199,11 +199,12 @@ fi
 
 # Everything from here down is Android-only.
 export CARGO_PROFILE_RELEASE_OPT_LEVEL=s # optimize for size over speed
+export RUSTFLAGS="-A unused-imports ${RUSTFLAGS:-}"
 
 # Use full LTO and small BoringSSL curve tables to reduce binary size.
 export CFLAGS="-DOPENSSL_SMALL -flto=full ${CFLAGS:-}"
 export CXXFLAGS="-DOPENSSL_SMALL -flto=full ${CXXFLAGS:-}"
-export CARGO_PROFILE_RELEASE_LTO=fat
+export CARGO_PROFILE_RELEASE_LTO="${CARGO_PROFILE_RELEASE_LTO:-thin}"
 export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 # Instruct boring-sys to autolink the *static* libc++, and to delay that linking until the final
@@ -224,6 +225,10 @@ export CC_aarch64_linux_android="${ANDROID_TOOLCHAIN_DIR}/aarch64-linux-android$
 export CC_armv7_linux_androideabi="${ANDROID_TOOLCHAIN_DIR}/armv7a-linux-androideabi${ANDROID_MIN_SDK_VERSION}-clang"
 export CC_x86_64_linux_android="${ANDROID_TOOLCHAIN_DIR}/x86_64-linux-android${ANDROID_MIN_SDK_VERSION}-clang"
 export CC_i686_linux_android="${ANDROID_TOOLCHAIN_DIR}/i686-linux-android${ANDROID_MIN_SDK_VERSION}-clang"
+export CXX_aarch64_linux_android="${ANDROID_TOOLCHAIN_DIR}/aarch64-linux-android${ANDROID_MIN_SDK_VERSION}-clang++"
+export CXX_armv7_linux_androideabi="${ANDROID_TOOLCHAIN_DIR}/armv7a-linux-androideabi${ANDROID_MIN_SDK_VERSION}-clang++"
+export CXX_x86_64_linux_android="${ANDROID_TOOLCHAIN_DIR}/x86_64-linux-android${ANDROID_MIN_SDK_VERSION}-clang++"
+export CXX_i686_linux_android="${ANDROID_TOOLCHAIN_DIR}/i686-linux-android${ANDROID_MIN_SDK_VERSION}-clang++"
 
 export CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER="${CC_aarch64_linux_android}"
 export CARGO_TARGET_ARMV7_LINUX_ANDROIDEABI_LINKER="${CC_armv7_linux_androideabi}"

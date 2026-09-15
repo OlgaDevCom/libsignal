@@ -104,9 +104,8 @@ tasks.named('jar') {
     }
 }
 
-processResources {
-    dependsOn ':makeJniLibrariesDesktop'
-}
+// Disabled for BChat composite Android integration:
+// we only need Android JNI, and desktop JNI build exhausts disk space.
 
 // MARK: Publishing
 
