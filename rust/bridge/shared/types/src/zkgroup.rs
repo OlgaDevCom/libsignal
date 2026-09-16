@@ -13,6 +13,10 @@ use zkgroup::receipts::*;
 use zkgroup::*;
 
 use crate::support::*;
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use crate::*;
 
 /// Checks that `bytes` can be deserialized as a `T` using our standard bincode settings.

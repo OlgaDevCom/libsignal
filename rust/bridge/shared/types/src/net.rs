@@ -25,6 +25,10 @@ use rand::TryRngCore as _;
 
 pub use self::remote_config::BuildVariant;
 use self::remote_config::RemoteConfig;
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use crate::*;
 
 pub mod cdsi;

@@ -11,6 +11,10 @@ use futures_util::FutureExt;
 use libsignal_protocol::*;
 use static_assertions::const_assert_eq;
 
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use crate::*;
 
 pub type KyberKeyPair = kem::KeyPair;

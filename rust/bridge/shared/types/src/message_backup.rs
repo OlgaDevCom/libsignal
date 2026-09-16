@@ -12,6 +12,10 @@ use libsignal_message_backup::key::MessageBackupKey as MessageBackupKeyInner;
 use libsignal_message_backup::{Error, FoundUnknownField, backup};
 use libsignal_protocol::Aci;
 
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use crate::*;
 
 pub struct MessageBackupKey(pub MessageBackupKeyInner);

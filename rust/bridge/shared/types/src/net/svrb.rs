@@ -19,6 +19,10 @@ use libsignal_net::ws::WebSocketServiceConnectError;
 pub use svrb_impl::Error;
 
 use crate::net::ConnectionManager;
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use crate::*;
 
 bridge_as_handle!(BackupStoreResponse);

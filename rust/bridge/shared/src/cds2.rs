@@ -9,6 +9,10 @@ use libsignal_bridge_macros::*;
 #[cfg(all(not(target_os = "android"), feature = "jni"))]
 use libsignal_bridge_types::cds2::Cds2Metrics;
 use libsignal_bridge_types::sgx_session::SgxClientState;
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use libsignal_bridge_types::support::*;
 
 use crate::protocol::Timestamp;

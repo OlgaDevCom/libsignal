@@ -8,6 +8,10 @@ use std::panic::RefUnwindSafe;
 use ::attest::hsm_enclave::Result;
 use ::attest::{client_connection, hsm_enclave};
 
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use crate::*;
 
 // It's okay to have a large enum because this type will be boxed for bridging after it's been

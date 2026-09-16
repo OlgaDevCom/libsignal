@@ -37,6 +37,10 @@ pub mod zkgroup;
 mod pin {
     use ::libsignal_account_keys::PinHash;
 
+    #[allow(
+        unused_imports,
+        reason = "bridge macros use these imports per target feature"
+    )]
     use crate::*;
 
     bridge_as_handle!(PinHash);
@@ -59,6 +63,10 @@ pub mod media {
         #[cfg(feature = "signal-media")] pub signal_media::sanitize::mp4::SanitizedMetadata,
     );
 
+    #[allow(
+        unused_imports,
+        reason = "bridge macros use these imports per target feature"
+    )]
     use crate::*;
 
     bridge_as_handle!(SanitizedMetadata);

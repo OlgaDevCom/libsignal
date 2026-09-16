@@ -11,6 +11,10 @@ use libsignal_bridge_macros::*;
 use libsignal_bridge_types::incremental_mac::*;
 use libsignal_protocol::incremental_mac::{Incremental, calculate_chunk_size};
 
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use crate::support::*;
 use crate::*;
 

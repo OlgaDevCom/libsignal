@@ -12,6 +12,10 @@ use rand::rngs::OsRng;
 use rand::{CryptoRng, SeedableRng};
 use signal_crypto::*;
 
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use crate::*;
 
 static ALLOW_DETERMINISTIC_RNG: AtomicBool = AtomicBool::new(false);

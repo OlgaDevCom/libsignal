@@ -6,6 +6,10 @@
 use hmac::Hmac;
 use libsignal_protocol::incremental_mac::{Incremental, Validating};
 
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use crate::*;
 
 pub type Digest = sha2::Sha256;

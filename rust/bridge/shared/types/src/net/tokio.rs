@@ -13,6 +13,10 @@ use futures_util::FutureExt as _;
 use futures_util::future::BoxFuture;
 
 use crate::support::*;
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use crate::*;
 pub struct TokioAsyncContext {
     pub(crate) rt: tokio::runtime::Runtime,

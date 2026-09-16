@@ -5,10 +5,15 @@
 
 use libsignal_net::auth::Auth;
 use libsignal_net::cdsi::{self, CdsiConnection, ClientResponseCollector, Token};
+#[cfg(feature = "jni")]
 use libsignal_net::infra::errors::RetryLater;
 use libsignal_net::infra::tcp_ssl::InvalidProxyConfig;
 
 use crate::net::ConnectionManager;
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use crate::*;
 
 #[cfg(feature = "jni")]

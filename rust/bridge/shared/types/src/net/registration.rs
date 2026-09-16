@@ -16,6 +16,10 @@ use libsignal_net_chat::api::registration::{
 use libsignal_net_chat::registration::{self as net_registration, ConnectUnauthChat, RequestError};
 use libsignal_protocol::PublicKey;
 
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use crate::*;
 
 pub struct RegistrationService(

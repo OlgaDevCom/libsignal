@@ -11,6 +11,10 @@ use libsignal_bridge_macros::*;
 use libsignal_core::Aci;
 use libsignal_protocol::PrivateKey;
 
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use crate::support::*;
 use crate::*;
 

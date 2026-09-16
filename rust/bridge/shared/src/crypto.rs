@@ -9,11 +9,19 @@ use aes_gcm_siv::{AeadCore, AeadInPlace, KeyInit};
 use libsignal_bridge_macros::*;
 use libsignal_bridge_types::crypto::{Aes256GcmDecryption, Aes256GcmEncryption, Aes256GcmSiv};
 use libsignal_core::curve::{PrivateKey, PublicKey};
+#[allow(
+    unused_imports,
+    reason = "some bridge functions are excluded from the FFI target"
+)]
 use signal_crypto::{
     Aes256Ctr32, CryptographicHash, CryptographicMac, Error, HpkeError, Result, SimpleHpkeReceiver,
     SimpleHpkeSender,
 };
 
+#[allow(
+    unused_imports,
+    reason = "bridge macros use these imports per target feature"
+)]
 use crate::support::*;
 use crate::*;
 
