@@ -153,6 +153,11 @@ task makeJniLibraries(type:Exec) {
     commandLine 'bash', '../build_jni.sh', *libsignalDebugFlag, *debugLevelLogsFlag, *jniTypeTaggingFlag, *jniCheckAnnotationsFlag, *debugFlag, *archs
     environment 'ANDROID_NDK_HOME', android.ndkDirectory
 
+    // LOCAL PATCH: like find_cargo.sh, fall back to the default rustup location when
+    // cargo and rustc are not on the PATH Gradle sees (IDE launchers, a daemon started
+    // before ~/.cargo/env was sourced). build_jni.sh calls bare cargo and rustc.
+    environment 'PATH', [System.getenv('PATH'), "${System.getenv('HOME')}/.cargo/bin"].findAll { it }.join(File.pathSeparator)
+
     // LOCAL PATCH: without declared inputs/outputs an Exec task is never up-to-date,
     // so cargo was re-entered on *every* Gradle build (~6s warm, minutes cold) even
     // when no Rust source had changed. cargo still does the real incremental work;
